@@ -1,0 +1,8 @@
+.env
+volumes
+.idea
+inventory/target
+common-lib/target
+docker-compose-database.yml
+settings.json
+.vscode
