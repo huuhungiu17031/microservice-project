@@ -3,6 +3,7 @@ volumes
 .idea
 inventory/target
 common-lib/target
-docker-compose-database.yml
+eureka/target
+api-gateway/target
 settings.json
 .vscode

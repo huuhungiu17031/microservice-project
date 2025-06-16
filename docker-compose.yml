@@ -1,73 +1,36 @@
 version: "3.8"
 
 services:
-  # rabbitmq:
-  #   image: rabbitmq:3-management
-  #   container_name: rabbitmq
-  #   ports:
-  #     - "5672:5672"    # for services to connect
-  #     - "15672:15672"  # management web UI
-  #   environment:
-  #     RABBITMQ_DEFAULT_USER: guest
-  #     RABBITMQ_DEFAULT_PASS: guest
-  #   networks:
-  #     - ecommerce_network
+  eureka-server:
+    build:
+      context: ./eureka
+      dockerfile: Dockerfile
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      - EUREKA_CLIENT_REGISTER_WITH_EUREKA=false
+      - EUREKA_CLIENT_FETCH_REGISTRY=false
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ecommerce_network
 
-  # mailhog:
-  #   image: mailhog/mailhog
-  #   container_name: mailhog
-  #   ports:
-  #     - "1025:1025"
-  #     - "8025:8025"
-  #   networks:
-  #     - ecommerce_network
-
-  #  eureka-server:
-  #    build:
-  #      context: ./eureka
-  #      dockerfile: Dockerfile
-  #    container_name: eureka-server
-  #    ports:
-  #      - "8761:8761"
-  #    environment:
-  #      - EUREKA_CLIENT_REGISTER_WITH_EUREKA=false
-  #      - EUREKA_CLIENT_FETCH_REGISTRY=false
-  #    healthcheck:
-  #      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
-  #      interval: 10s
-  #      timeout: 5s
-  #      retries: 5
-  #    networks:
-  #      - ecommerce_network
-  #
-  #  api-gateway:
-  #    build:
-  #      context: ./api-gateway
-  #      dockerfile: Dockerfile
-  #    container_name: api-gateway
-  #    ports:
-  #      - "8080:8080"
-  #    depends_on:
-  #      eureka-server:
-  #        condition: service_healthy
-  #    networks:
-  #      - ecommerce_network
-
-  # email-service:
-  #   build:
-  #     context: ./ecommerce/email
-  #     dockerfile: Dockerfile
-  #   container_name: email
-  #   depends_on:
-  #     eureka-server:
-  #       condition: service_healthy
-  #   networks:
-  #     - ecommerce_network
-  #   healthcheck:
-  #     test: ["CMD", "curl", "-f", "http://localhost:9003/actuator/health"]
-  #     interval: 10s
-  #     timeout: 5s
-  #     retries: 5
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - ecommerce_network
 
   inventory-service:
     build:
@@ -80,9 +43,10 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASS=${POSTGRES_PASSWORD}
       - POSTGRES_PORT=${POSTGRES_PORT}
-    #    depends_on:
-    #      eureka-server:
-    #        condition: service_healthy
+      - EUREKA_HOST=${EUREKA_HOST}
+    depends_on:
+      eureka-server:
+        condition: service_healthy
     networks:
       - ecommerce_network
 
