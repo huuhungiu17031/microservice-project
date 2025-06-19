@@ -32,11 +32,11 @@ services:
     networks:
       - ecommerce_network
 
-  inventory-service:
+  product-service:
     build:
-      context: ./inventory
+      context: ./product
       dockerfile: Dockerfile
-    container_name: inventory-service
+    container_name: product-service
     environment:
       - POSTGRES_HOST=${DB_HOST}
       - POSTGRES_DATABASE_NAME=${POSTGRES_DATABASE_NAME}

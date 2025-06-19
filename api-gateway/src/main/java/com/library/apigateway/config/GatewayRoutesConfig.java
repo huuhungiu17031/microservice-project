@@ -12,7 +12,7 @@ public class GatewayRoutesConfig {
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route("product_service", r -> r.path("/api/products/**")
-                        .uri("lb://INVENTORY-SERVICE"))  // Eureka service name (must match)
+                        .uri("lb://PRODUCT-SERVICE")) // Eureka service name (must match)
                 .build();
     }
 }
