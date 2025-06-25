@@ -1,6 +1,21 @@
 version: "3.8"
 
 services:
+  ecommerce-db:
+    image: debezium/postgres:16-alpine
+    container_name: ecommerce-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE_NAME}
+    ports:
+      - "5455:5432"
+    volumes:
+      - ./volumes/product-db:/var/lib/postgresql/data
+      - ./postgres_init.sql:/docker-entrypoint-initdb.d/postgres_init.sql
+    networks:
+      - ecommerce_network
+
   eureka-server:
     build:
       context: ./eureka
@@ -39,7 +54,7 @@ services:
     container_name: product-service
     environment:
       - POSTGRES_HOST=${DB_HOST}
-      - POSTGRES_DATABASE_NAME=${POSTGRES_DATABASE_NAME}
+      - PRODUCT_DATABASE_NAME=${PRODUCT_DATABASE_NAME}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASS=${POSTGRES_PASSWORD}
       - POSTGRES_PORT=${POSTGRES_PORT}
@@ -53,3 +68,6 @@ services:
 networks:
   ecommerce_network:
     driver: bridge
+
+volumes:
+  postgres:

@@ -25,7 +25,6 @@ public class ApiExceptionHandler {
     public ResponseEntity<ErrorVm> handleNotFoundException(NotFoundException ex, WebRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
         String message = ex.getMessage();
-        System.out.println(buildErrorResponse(status, message, null, ex, request, 404));
         return buildErrorResponse(status, message, null, ex, request, 404);
     }
 

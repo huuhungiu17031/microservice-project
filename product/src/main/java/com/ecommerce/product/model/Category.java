@@ -1,6 +1,5 @@
 package com.ecommerce.product.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,20 +15,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "inventory_product")
-public class InventoryProduct {
+@Table(name = "categories")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
+    private String categoryName;
 
     @ManyToOne
-    @JoinColumn(name = "inventory_id", nullable = false)
-    private Inventory inventory;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
-
-    @Column(name = "quantity")
-    private Integer quantity;
+    @JoinColumn(name = "parent_id")
+    private Product parent;
 }

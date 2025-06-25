@@ -1,25 +1,24 @@
 spring:
   application:
-    name: product-service
+    name: order-service
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     properties:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
   datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5455}/${PRODUCT_DATABASE_NAME:product_db}
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5455}/${ORDER_DATABASE_NAME:order_db}
     username: ${POSTGRES_USER:myuser}
     password: ${POSTGRES_PASS:mypassword}
     driver-class-name: org.postgresql.Driver
 
 server:
-  port: 9001
+  port: 9002
   servlet:
-    context-path: /product_service
+    context-path: /order_service
 
 logging:
   level:

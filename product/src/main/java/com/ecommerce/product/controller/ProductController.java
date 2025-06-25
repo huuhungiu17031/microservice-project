@@ -1,5 +1,6 @@
 package com.ecommerce.product.controller;
 
+import com.ecommerce.commonlib.constants.ApiConstant;
 import com.ecommerce.product.service.ProductService;
 import com.ecommerce.product.viewModel.product.ProductGetDetailVm;
 import com.ecommerce.product.viewModel.product.ProductPostVm;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping(ApiConstant.PRODUCTS_URL)
 public class ProductController {
 
     private final ProductService productService;

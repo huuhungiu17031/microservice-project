@@ -7,7 +7,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.4.4</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <relativePath />
     </parent>
     <groupId>com.ecommerce</groupId>
     <artifactId>ecommerce</artifactId>
@@ -20,6 +20,8 @@
         <module>eureka</module>
         <module>api-gateway</module>
         <module>product</module>
+        <module>order</module>
+        <module>warehouse</module>
     </modules>
 
     <properties>

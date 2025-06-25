@@ -1,9 +1,12 @@
 .env
 volumes
 .idea
+/order/target
 product/target
 common-lib/target
 eureka/target
 api-gateway/target
+/warehouse/target
+
 settings.json
 .vscode

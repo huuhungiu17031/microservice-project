@@ -23,6 +23,7 @@ public class Product {
     private String description;
     private Integer price;
     private Integer shopId;
+    private Boolean isPublished;
 
     public ProductGetDetailVm toProductGetDetailVm() {
         return new ProductGetDetailVm(id, productName, description, price, shopId);
