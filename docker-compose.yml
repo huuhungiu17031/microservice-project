@@ -39,6 +39,8 @@ services:
       context: ./api-gateway
       dockerfile: Dockerfile
     container_name: api-gateway
+    environment:
+      - EUREKA_HOST=${EUREKA_HOST}
     ports:
       - "8080:8080"
     depends_on:
