@@ -4,7 +4,6 @@ import com.ecommerce.commonlib.constants.ApiConstant;
 import com.ecommerce.product.service.ProductService;
 import com.ecommerce.product.viewModel.product.ProductGetDetailVm;
 import com.ecommerce.product.viewModel.product.ProductPostVm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +20,6 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
