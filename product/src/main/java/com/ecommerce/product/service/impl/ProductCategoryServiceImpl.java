@@ -26,17 +26,24 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Override
     public ProductCategory getById(ProductCategoryId id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+        return productCategoryRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(
+                        Constants.ErrorCode.CATEGORY_AND_PRODUCT_NOT_FOUND,
+                        id.getCategoryId(),
+                        id.getProductId()));
     }
 
     @Override
     public ProductCategory update(ProductCategoryId id, ProductCategory updatedData) {
         Optional<ProductCategory> existingOpt = productCategoryRepository.findById(id);
-        if (!existingOpt.isPresent()) throw new NotFoundException(Constants.ErrorCode.CATEGORY_AND_PRODUCT_NOT_FOUND, id.getCategoryId(), id.getProductId());
+        if (!existingOpt.isPresent())
+            throw new NotFoundException(Constants.ErrorCode.CATEGORY_AND_PRODUCT_NOT_FOUND, id.getCategoryId(),
+                    id.getProductId());
         ProductCategory existing = existingOpt.get();
-        if (updatedData.getCategory() != null) existing.setCategory(updatedData.getCategory());
-        if (updatedData.getProduct() != null) existing.setProduct(updatedData.getProduct());
+        if (updatedData.getCategory() != null)
+            existing.setCategoryId(updatedData.getCategoryId());
+        if (updatedData.getProduct() != null)
+            existing.setProductId(updatedData.getProductId());
         return productCategoryRepository.save(existing);
     }
 

@@ -6,7 +6,7 @@ import com.ecommerce.product.viewModel.product.ProductPostVm;
 import java.util.List;
 
 public interface ProductService {
-    ProductGetDetailVm createProduct(ProductPostVm productPostVm);
+    ProductGetDetailVm create(ProductPostVm productPostVm);
 
     ProductGetDetailVm findProductById(Integer id);
 

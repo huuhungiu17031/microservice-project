@@ -21,7 +21,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductGetDetailVm createProduct(ProductPostVm productPostVm) {
+    public ProductGetDetailVm create(ProductPostVm productPostVm) {
         Product saved = productRepository.save(productPostVm.toEntity());
         return saved.toProductGetDetailVm();
     }

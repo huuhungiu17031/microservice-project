@@ -25,8 +25,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductGetDetailVm> createProduct(@RequestBody ProductPostVm productPostVm) {
-        ProductGetDetailVm createdProduct = productService.createProduct(productPostVm);
+    public ResponseEntity<ProductGetDetailVm> create(@RequestBody ProductPostVm productPostVm) {
+        ProductGetDetailVm createdProduct = productService.create(productPostVm);
         return ResponseEntity.ok(createdProduct);
     }
 
